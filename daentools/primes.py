@@ -20,4 +20,10 @@ def prime_factors(n):
     Get the prime factors of n.
     Returns a list of all factors
     """
-    pass
+    if n == 1: return [1]
+
+    factors = []
+
+    for prime in gen_primes(n):
+        while n % prime == 0:
+            factors.append(prime)
