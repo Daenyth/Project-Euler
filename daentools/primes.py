@@ -8,8 +8,8 @@ def is_prime(n):
     """
     Checks if a number is prime. Returns True or False
     """
-    if x == 2: return True
-    if x % 2 == 0: return False
+    if n == 2: return True
+    if n % 2 == 0: return False
     for x in range(sqrt(n)):
         if x % n == 0: return False
 
