@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from daentools.primes import prime_factors
+
 def problem_three():
     """
     Return the largest prime factor of the number 600851475143
