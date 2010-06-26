@@ -20,13 +20,12 @@ def prime_factors(n):
     Get the prime factors of n.
     Returns a list of all factors
     """
-    if n == 1: return [1]
-
-    factors = []
-
     for prime in primes(n):
         while n % prime == 0:
-            factors.append(prime)
+            yield prime
+            n /= prime
+        if n == 1: break
+
 
 def primes(limit):
     """
