@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from functools import partial
+from itertools import islice
 
 def divisible(numerator, denominator):
     """
@@ -29,3 +30,9 @@ def lowest_common_multiple(nums):
     Return lowest common multiples of nums
     """
     return reduce(lambda a, b: a * b / greatest_common_factor(a, b), nums)
+
+def nth(iterable, n, default=None):
+    """
+    Returns the nth item or a default value
+    """
+    return next(islice(iterable, n, None), default)
