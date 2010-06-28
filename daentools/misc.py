@@ -36,3 +36,12 @@ def nth(iterable, n, default=None):
     Returns the nth item or a default value
     """
     return next(islice(iterable, n, None), default)
+
+def is_pythagorean(a, b, c):
+    """
+    Checks if a,b,c is a pythagorean triplet
+    a^2 + b^2 = c^2
+    Returns True/False
+    """
+    return pow(a,2) + pow(b,2) = pow(c,2)
+
