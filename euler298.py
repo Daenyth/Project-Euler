@@ -13,13 +13,16 @@ class Memory(object):
                 'longest_present': LongestPresent }
         return object.__new__(_subclasses[strategy])
 
+    def __repr__(self):
+        return str(self._mem.keys())
+
     def __contains__(self, num):
         return num in self._mem
 
     def add(self, num, turn):
         if len(self._mem) >= self._limit:
             self._forget()
-        self._update(num, turn)
+        self.update(num, turn)
 
     def _forget(self):
         lowest = None
@@ -33,11 +36,11 @@ class Memory(object):
         del self._mem[lowest]
 
 class LongestMissed(Memory):
-    def _update(self, num, turn):
+    def update(self, num, turn):
         self._mem[num] = turn
 
 class LongestPresent(Memory):
-    def _update(self, num, turn):
+    def update(self, num, turn):
         if num not in self._mem:
             self._mem[num] = turn
 
@@ -49,11 +52,29 @@ class Player(object):
     def add_point(self):
         self.score += 1
 
-    def remember(self, num):
-        self.memory.add(num)
+    def remember(self, num, turn):
+        if not num in self.memory:
+            self.memory.add(num, turn)
+        self.memory.update(num, turn)
 
 def get_target():
-    return random.randrange(1,10+1)
+    return random.randint(1,10)
+
+def play_game(turns=50):
+    larry = Player('longest_missed')
+    robin = Player('longest_present')
+
+    players = (larry, robin)
+
+    for turn in turns:
+        target = get_target()
+        for player in players:
+            if target in player.memory:
+                player.add_point()
+            player.remember(target, turn)
+        #print "T02%d C:%02d Lm%s Ls%d Rm%s Rs%d" % (turn, target, larry.memory, larry.score, robin.memory, robin.score)
+
+    return abs(larry.score - robin.score)
 
 def problem_298():
     """
@@ -74,20 +95,7 @@ def problem_298():
     value of |L-R| after 50 turns? Give your answer rounded to eight decimal
     places using the format x.xxxxxxxx .
     """
-
-    larry = Player('longest_missed')
-    robin = Player('longest_present')
-
-    players = (larry, robin)
-
-    for turn in range(50):
-        target = get_target()
-        for player in players:
-            if target in player.memory:
-                player.add_point()
-            player.memory.add(target, turn)
-
-    return abs(larry.score - robin.score)
+    pass
 
 if __name__ == '__main__':
     print problem_298()
