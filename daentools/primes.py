@@ -75,7 +75,7 @@ def primes(limit):
     """
     Return a list of primes up to limit using the seive of eratosthenes
     """
-    limit = int(ceil(sqrt(limit)))
+    #limit = int(ceil(sqrt(limit)))
     num_tab = range(1,limit,2)
     # our table looks like 1,3,5,7,... we change the first
     # to the first prime, 2
