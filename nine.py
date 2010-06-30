@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from daentools.math import is_pythagorean
+from daentools.mathutils import is_pythagorean
 from daentools.misc import first
 
 def problem_nine():

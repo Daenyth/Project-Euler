@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from daentools.math import lowest_common_multiple
+from daentools.mathutils import lowest_common_multiple
 
 def problem_five():
     """
