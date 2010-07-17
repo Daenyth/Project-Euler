@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-import math
-
 from functools import partial
+
+from primes import prime_factors
 
 def check_divisors(num, factors):
     divcheck = partial(divisible, num)
@@ -22,16 +22,16 @@ def lowest_common_multiple(nums):
 
 def factors(number):
     """
-    Given a number, return a list of all possible integer factors.
-
-    Note that this returns all factors, not just primes.
+    Given a number, return a list of all factors as (prime, exponent) tuples
     """
-    factors = set([1, number])
-    for divisor in xrange(2, int(math.ceil(math.sqrt(number)))):
-        if divisible(number, divisor):
-            factors.add(divisor)
+    factors = {}
+    for factor in prime_factors(number):
+        try:
+            factors[factor] += 1
+        except KeyError:
+            factors[factor] = 1
 
-    return factors
+    return [(prime, exp) for (prime, exp) in factors.items()]
 
 def divisible(numerator, denominator):
     """
