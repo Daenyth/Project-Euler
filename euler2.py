@@ -2,7 +2,7 @@
 
 from itertools import count, takewhile
 
-from daentools.fibonacci import fib
+from daentools.sequences import fib
 
 def problem_two(limit=4000000):
     """
