@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import math
+
 from functools import partial
 
 def check_divisors(num, factors):
@@ -17,6 +19,19 @@ def lowest_common_multiple(nums):
     Return lowest common multiples of nums
     """
     return reduce(lambda a, b: a * b / greatest_common_factor(a, b), nums)
+
+def factors(number):
+    """
+    Given a number, return a list of all possible integer factors.
+
+    Note that this returns all factors, not just primes.
+    """
+    factors = set([1, number])
+    for divisor in xrange(2, int(math.ceil(math.sqrt(number)))):
+        if divisible(number, divisor):
+            factors.add(divisor)
+
+    return factors
 
 def divisible(numerator, denominator):
     """
