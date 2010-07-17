@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
-from itertools import takewhile
+import operator as op
 
 from daentools.sequences import triangle_numbers
 from daentools.mathutils import factors
+from daentools.misc import first
 
 def problem_12():
     """
@@ -24,8 +25,8 @@ def problem_12():
     28: 1,2,4,7,14,28
     We can see that 28 is the first triangle number to have over five divisors.
     """
-    triangles = takewhile(lambda tri: len(factors(tri)) <= 500, triangle_numbers())
-    return list(triangles)[-1]
+    num_factors = lambda x: reduce(op.mul, [e + 1 for (p,e) in factors(x)])
+    return first((tri for tri in triangle_numbers() if num_factors(tri) > 500))
 
 if __name__ == '__main__':
     print problem_12()
