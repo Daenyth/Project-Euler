@@ -31,6 +31,7 @@ def factors(number):
         except KeyError:
             factors[factor] = 1
 
+    if len(factors) == 0: return [(1, 1)]
     return [(prime, exp) for (prime, exp) in factors.items()]
 
 def divisible(numerator, denominator):
