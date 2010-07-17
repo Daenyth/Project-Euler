@@ -87,7 +87,10 @@ def primes(limit):
     highestval = num_tab[-1]
     while 1:
         # find first operator in the sieve
-        cx = num_tab[i]
+        try:
+            cx = num_tab[i]
+        except IndexError:
+            break
         # non working value so move to the next
         if cx is False:
             i += 1
