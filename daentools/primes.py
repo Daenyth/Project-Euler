@@ -77,6 +77,8 @@ def primes(limit):
     """
     #limit = int(ceil(sqrt(limit)))
     num_tab = range(1,limit,2)
+    if len(num_tab) == 0:
+        return []
     # our table looks like 1,3,5,7,... we change the first
     # to the first prime, 2
     num_tab[0] = 2
