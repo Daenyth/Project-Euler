@@ -8,7 +8,7 @@ def skip_count(offset=0, step=1):
         offset += step
 
 def first(list):
-    return list[0]
+    return nth(list, 1)
 
 def nth(iterable, n, default=None):
     """
