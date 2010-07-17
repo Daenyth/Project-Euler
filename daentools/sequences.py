@@ -20,7 +20,7 @@ def triangle_numbers(limit=None):
     Takes an optional limit of the nth last number to yield
     """
     total = 0
-    for num in count(start=1):
+    for num in count():
         total += num
         yield total
         if num == limit:
