@@ -81,6 +81,7 @@ def pythagorean_triples(n=1,limit=None):
         yield triple
         n += 1
 
+@memoized
 def ackermann(m, n):
     while m >= 4:
         if n == 0:
@@ -95,3 +96,15 @@ def ackermann(m, n):
     if m == 1:
         return n + 2
     return n + 1
+
+def hyper(base, a, b):
+    if base == 0:
+        return b + 1
+    if b == 0:
+        if base == 1:
+            return a
+        if base == 2:
+            return 0
+        if base >= 3:
+            return 1
+    return hyper(base - 1, a, hyper(base, a, b - 1))
