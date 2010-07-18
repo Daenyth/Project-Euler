@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 from math import sqrt, ceil, log
+from copy import copy
+
 from memoize import memoized
 
 @memoized
@@ -16,7 +18,7 @@ def is_prime(n):
     return True
 
 @memoized
-def prime_factors(n, prime_list=None, prime_limit=None):
+def prime_factors(n, prime_list=[None], prime_limit=[None]):
     """
     Get the prime factors of n.
     Returns a list of all factors
@@ -27,23 +29,41 @@ def prime_factors(n, prime_list=None, prime_limit=None):
 
     # Use mutability of default arguments to avoid recalculating the
     # prime list unless we're called with a higher n than we've seen before
-    if prime_limit is None:
-        prime_limit = n
-    if prime_list is None or prime_limit < n:
-        prime_list = list(primes(n))
+    if prime_limit == [None]:
+        prime_limit[0] = n
+    if prime_list == [None] or prime_limit[0] < n:
+        #print 'generating new prime list up to %d' % n
+        prime_list.extend(list(primes(n)))
+        prime_list.pop(0) # remove None
+        prime_limit[0] = n
 
     factor_list = []
 
-    for prime in prime_list:
+    # Copying because otherwise removing already tested primes will mutate the cached list
+    #print 'pre-loop prime list is', len(prime_list)
+    test_primes = copy(prime_list)
+
+    while 1:
+        # Pull first element because we mutate the list in the loop
+        prime = test_primes[0]
+        if prime > n: break
+        #print 'testing prime %d against %d' % (prime, n)
         if n % prime == 0:
             remainder = n / prime
+            #print 'Adding prime %d with remainder %d' % (prime, remainder)
             factor_list.append(prime)
             if is_prime(remainder):
+                #print 'remainder %d is prime, adding' % (remainder)
                 factor_list.append(remainder)
+                break
             else:
-                factor_list.extend(prime_factors(remainder))
+                #print 'recursing on %d with [%s]' % (remainder, ",".join(map(str,test_primes)))
+                factor_list.extend(prime_factors(remainder, test_primes))
+                break
         else:
-            prime_list.remove(prime)
+            #print 'removing %d from prime list' % prime
+            test_primes.remove(prime)
+        #print 'loop end test_primes is', test_primes
 
     return filter(None, factor_list)
 
