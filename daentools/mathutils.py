@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
 from functools import partial
+import operator as op
 
 from primes import prime_factors
+from memoize import memoized
 
 def check_divisors(num, factors):
     divcheck = partial(divisible, num)
@@ -44,6 +46,10 @@ def divisible(numerator, denominator):
     Returns True/False
     """
     return numerator % denominator == 0
+
+@memoized
+def factorial(n):
+    return reduce(op.mul, xrange(1,n+1))
 
 def is_pythagorean(triple):
     """
