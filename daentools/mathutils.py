@@ -82,8 +82,16 @@ def pythagorean_triples(n=1,limit=None):
         n += 1
 
 def ackermann(m, n):
-    if m == 0: return n + 1
-    if n == 0 and m > 0:
-        return ackermann(m - 1,1)
-    if m > 0 and n > 0:
-        return ackermann(m - 1, ackermann(m, n - 1))
+    while m >= 4:
+        if n == 0:
+            n = 1
+        else:
+            n = ackermann(m, n - 1)
+
+    if m == 3:
+        return 2 ** (n + 3) - 3
+    if m == 2:
+        return 2 * n + 3
+    if m == 1:
+        return n + 2
+    return n + 1
