@@ -10,8 +10,8 @@ def is_prime(n):
     """
     if n == 2: return True
     if n % 2 == 0: return False
-    for x in range(sqrt(n)):
-        if x % n == 0: return False
+    for x in xrange(2, n - 1):
+        if n % x == 0: return False
 
     return True
 
