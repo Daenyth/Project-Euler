@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from daentools.mathutils import factorial
+from math import factorial
 
 def problem_20():
     """

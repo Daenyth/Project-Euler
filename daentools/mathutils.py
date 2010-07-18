@@ -47,10 +47,6 @@ def divisible(numerator, denominator):
     """
     return numerator % denominator == 0
 
-@memoized
-def factorial(n):
-    return reduce(op.mul, xrange(1,n+1))
-
 def is_pythagorean(triple):
     """
     Checks if 3-tuple (a,b,c) is a pythagorean triplet
