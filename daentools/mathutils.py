@@ -25,13 +25,17 @@ def factors(number):
     Given a number, return a list of all factors as (prime, exponent) tuples
     """
     factors = {}
-    for factor in prime_factors(number):
-        try:
-            factors[factor] += 1
-        except KeyError:
-            factors[factor] = 1
+    try:
+        for factor in prime_factors(number):
+            try:
+                factors[factor] += 1
+            except KeyError:
+                factors[factor] = 1
+    except TypeError:
+        # prime_numbers() is None
+        pass # No factors but itself
 
-    if len(factors) == 0: return [(1, 1)]
+    if len(factors) == 0: return [(number, 1)]
     return [(prime, exp) for (prime, exp) in factors.items()]
 
 def divisible(numerator, denominator):
