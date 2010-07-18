@@ -15,16 +15,37 @@ def is_prime(n):
 
     return True
 
-def prime_factors(n):
+@memoized
+def prime_factors(n, prime_list=None, prime_limit=None):
     """
     Get the prime factors of n.
     Returns a list of all factors
+    Uses trial division
     """
-    for prime in primes(n):
-        while n % prime == 0:
-            yield prime
-            n /= prime
-        if n == 1: break
+    if n == 1: return None
+    if is_prime(n): return None
+
+    # Use mutability of default arguments to avoid recalculating the
+    # prime list unless we're called with a higher n than we've seen before
+    if prime_limit is None:
+        prime_limit = n
+    if prime_list is None or prime_limit < n:
+        prime_list = list(primes(n))
+
+    factor_list = []
+
+    for prime in prime_list:
+        if n % prime == 0:
+            remainder = n / prime
+            factor_list.append(prime)
+            if is_prime(remainder):
+                factor_list.append(remainder)
+            else:
+                factor_list.extend(prime_factors(remainder))
+        else:
+            prime_list.remove(prime)
+
+    return filter(None, factor_list)
 
 def approx_nth_prime(n):
     """
