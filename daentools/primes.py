@@ -11,6 +11,7 @@ def is_prime(n):
     Checks if a number is prime. Returns True or False
     """
     if n == 2: return True
+    if n < 2: return False
     if n % 2 == 0: return False
     for x in xrange(2, n - 1):
         if n % x == 0: return False
