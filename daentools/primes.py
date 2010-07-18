@@ -3,7 +3,7 @@
 from math import sqrt, ceil, log
 from copy import copy
 
-from memoize import memoized
+from memoize import memoized, memoize_first
 
 @memoized
 def is_prime(n):
@@ -18,7 +18,7 @@ def is_prime(n):
 
     return True
 
-@memoized
+@memoize_first
 def prime_factors(n, prime_list=[None], prime_limit=[None]):
     """
     Get the prime factors of n.
