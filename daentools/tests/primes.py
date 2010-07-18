@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
 import unittest
+import operator as op
 
 from daentools import primes
 
 class IsPrime(unittest.TestCase):
     def test_is_prime(self):
         for p in primes.primes(20000):
-            self.assertTrue(primes.is_prime, p)
+            self.assertTrue(primes.is_prime(p), 'Prime %d fails prime check' % p)
 
 class Primes(unittest.TestCase):
     def test_primes(self):
@@ -16,13 +17,14 @@ class Primes(unittest.TestCase):
 
 class PrimeFactors(unittest.TestCase):
     def test_prime_factors(self):
-        factors = {
-            10: set([2,5]),
-            20: set([2,2,5]),
-            57: set([3,19]),
-        }
-        for num in factors:
-            self.assertEqual(primes.prime_factors(num), factors[num], 'Incorrect factor list for %d' % num)
+        for num in xrange(2,10000):
+            factors = primes.prime_factors(num)
+            if not factors:
+                self.assertTrue(primes.is_prime(num), 'No factor list returned for non-prime %d' % num)
+                continue
+            product = reduce(op.mul, factors)
+
+            self.assertEqual(product, num, 'Incorrect factor list for %d: (%s) = %d' % (num, "*".join(map(str, factors)), product))
 
 if __name__ == '__main__':
     unittest.main()
