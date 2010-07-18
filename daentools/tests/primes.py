@@ -17,7 +17,8 @@ class Primes(unittest.TestCase):
 
 class PrimeFactors(unittest.TestCase):
     def test_prime_factors(self):
-        for num in xrange(2,10000):
+        # Loop downwards so we don't have to keep re-seiving the prime list
+        for num in xrange(10000,2,-1):
             factors = primes.prime_factors(num)
             if not factors:
                 self.assertTrue(primes.is_prime(num), 'No factor list returned for non-prime %d' % num)
