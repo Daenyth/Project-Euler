@@ -35,7 +35,7 @@ def prime_factors(n, prime_list=[None], prime_limit=[None]):
     if prime_list == [None] or prime_limit[0] < n:
         #print 'generating new prime list up to %d' % n
         prime_list.extend(list(primes(n)))
-        prime_list.pop(0) # remove None
+        prime_list.remove(None)
         prime_limit[0] = n
 
     factor_list = []
