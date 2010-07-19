@@ -56,11 +56,10 @@ def prime_factors(n, prime_list=[None], prime_limit=[None]):
             if is_prime(remainder):
                 #print 'remainder %d is prime, adding' % (remainder)
                 factor_list.append(remainder)
-                break
             else:
                 #print 'recursing on %d with [%s]' % (remainder, ",".join(map(str,test_primes)))
                 factor_list.extend(prime_factors(remainder, test_primes))
-                break
+            break
         else:
             #print 'removing %d from prime list' % prime
             test_primes.remove(prime)
