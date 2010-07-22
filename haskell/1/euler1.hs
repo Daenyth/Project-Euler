@@ -1,4 +1,4 @@
-module Euler1 (wanted, problem1, main) where
+module Euler1 where
 import IO
 
 wanted :: (Integral a) => a -> Bool
