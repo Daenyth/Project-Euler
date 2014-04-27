@@ -36,9 +36,10 @@ object Euler14 {
   def chainLength(n: Long) = collatzChain(n).length
 
   def main(args: Array[String]) {
-    val max = (1 to 1000000).map { n =>
+    val max = (1000000 to 2 by -1).flatMap { n =>
       print("\r" + n)
-      n -> chainLength(n)
+      if(cache.contains(n)) None
+      else Some(n -> chainLength(n))
     }.maxBy(_._2)
     println()
     println(max)
